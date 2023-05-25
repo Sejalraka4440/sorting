@@ -1,43 +1,25 @@
-// C program to implement recursive Binary Search
-#include <stdio.h>
+def binary_search(arr, target):
+    low = 0
+    high = len(arr) - 1
 
-// A recursive binary search function. It returns
-// location of x in given array arr[l..r] is present,
-// otherwise -1
-int binarySearch(int arr[], int l, int r, int x)
-{
-	if (r >= l) {
-		int mid = l + (r - l) / 2;
+    while low <= high:
+        mid = (low + high) // 2
 
-		// If the element is present at the middle
-		// itself
-		if (arr[mid] == x)
-			return mid;
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
 
-		// If element is smaller than mid, then
-		// it can only be present in left subarray
-		if (arr[mid] > x)
-			return binarySearch(arr, l, mid - 1, x);
+    return -1  # Target not found
 
-		// Else the element can only be present
-		// in right subarray
-		return binarySearch(arr, mid + 1, r, x);
-	}
+# Example usage
+numbers = [2, 4, 7, 10, 13, 15, 20, 22]
+target_number = 13
 
-	// We reach here when element is not
-	// present in array
-	return -1;
-}
-
-// Driver code
-int main()
-{
-	int arr[] = { 2, 3, 4, 10, 40 };
-	int n = sizeof(arr) / sizeof(arr[0]);
-	int x = 10;
-	int result = binarySearch(arr, 0, n - 1, x);
-	(result == -1)
-		? printf("Element is not present in array")
-		: printf("Element is present at index %d", result);
-	return 0;
-}
+result = binary_search(numbers, target_number)
+if result != -1:
+    print(f"Target number {target_number} found at index {result}.")
+else:
+    print("Target number not found.")
